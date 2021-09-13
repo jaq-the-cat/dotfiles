@@ -36,13 +36,13 @@ export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/bin"
 bindkey '^F' autosuggest-accept
 
 git_prompt() {
- ref=$(git symbolic-ref HEAD | cut -d'/' -f3) 2> /dev/null
- if [ "$ref" = "" ]
- then
-   echo ""
- else
-   echo "$ref "
- fi
+  ref=$(git symbolic-ref HEAD | cut -d'/' -f3) 2> /dev/null
+  if [ "$ref" = "" ]
+  then
+    echo ""
+  else
+    echo "$ref "
+  fi
 }
 
-export PROMPT='%F{green}%n%F{magenta}@%F{blue}%M%F{green}%~ %F{red}$(git_prompt)%F{reset}'
+export PROMPT='%F{green}%n%F{magenta}@%F{blue}%M%F{green}%~ %F{red}$(git_prompt)%B%F{magenta}$ %b%F{reset}'
