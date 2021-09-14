@@ -69,8 +69,6 @@ nnoremap _ 10<C-w><
 " copy to system clipboard
 xnoremap <C-c> "+y
 
-xnoremap <C-c> :!tee >(xsel -b)<CR>
-
 """ Plugins
 nnoremap <bar> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=26
