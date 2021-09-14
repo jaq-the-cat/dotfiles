@@ -1,3 +1,4 @@
+set encoding=utf-8
 set nocompatible
 set tabstop=2
 set shiftwidth=2
@@ -12,6 +13,7 @@ set shortmess+=c
 set number
 set signcolumn=number
 set nohlsearch
+set termguicolors
 
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
@@ -36,13 +38,10 @@ Plug 'matze/vim-move' " move lines and characters around
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
+Plug 'tomasiser/vim-code-dark'
 Plug 'marko-cerovac/material.nvim'
-Plug 'tanvirtin/monokai.nvim'
+Plug 'EdenEast/nightfox.nvim'
 call plug#end()
-
-" Autostart NERDTree
-"autocmd VimEnter * NERDTree | wincmd p
-let g:NERDTreeWinSize=26
 
 " Movement
 nnoremap j gj
@@ -67,56 +66,30 @@ nnoremap <C-k> 8gk
 nnoremap + 10<C-w>>
 nnoremap _ 10<C-w><
 
-" Cool stuff
+" copy to system clipboard
+xnoremap <C-c> "+y
+
+xnoremap <C-c> :!tee >(xsel -b)<CR>
+
+""" Plugins
 nnoremap <bar> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize=26
 
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fl :Lines<CR>
 
-" GoTo code navigation.
-nnoremap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> gy <Plug>(coc-type-definition)
-nnoremap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> gr <Plug>(coc-references)
+" scroll floating windows/popups with Up and Down
+nnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Up>"
+nnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Down>"
+inoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Up>"
+vnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Down>"
 
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-nnoremap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xnoremap <leader>fr  <Plug>(coc-format-selected)
-nnoremap <leader>fr  <Plug>(coc-format-selected)
-
-xnoremap <leader>w  <Plug>(coc-codeaction-selected)
-nnoremap <leader>w  <Plug>(coc-codeaction-selected)
-
-nnoremap <leader>. :CocCommand<CR>
-
-" scroll floating windows/popups with C-f and C-b
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-
-" Plugins
 let g:user_emmet_leader_key=','
 
-inoremap <silent><expr> <TAB>
+inoremap <silent><expr> <tab>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -129,13 +102,48 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-colo monokai
+" GoTo code navigation.
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gy <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nnoremap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xnoremap <leader>fr <Plug>(coc-format-selected)
+nnoremap <leader>fr <Plug>(coc-format-selected)
+
+xnoremap M <Plug>(coc-codeaction-selected)
+nnoremap M <Plug>(coc-codeaction)
+
+nnoremap <leader>. :CocCommand<CR>
+
+""" Colorschemes
+
+"colo monokai
 "colo monokai_pro
 
-let g:material_style = 'palenight'
+"colo codedark
+
 "colo material
 
-highlight CocFloating guibg=#1D1E19
+colo nightfox
+
+highlight CocFloating guibg=#1d1d1d
 
 
 lua <<EOF

@@ -17,12 +17,21 @@ export LANG=en_US.UTF-8
 export EDITOR="nvim"
 export VISUAL=$EDITOR
 
+# Terminal stuff
 alias icat="kitty +kitten icat"
 alias q="exit"
 alias di="sudo dnf install -y"
 alias dr="sudo dnf remove -y"
 alias ds="dnf search"
 
+# Python stuff
+alias pis="pipenv shell"
+alias pi3="pipenv --three"
+alias pii="pipenv install"
+alias piu="pipenv uninstall"
+alias pig="pipenv graph"
+
+# Git stuff
 alias gitac="git add . && git commit"
 alias gitc="git commit"
 alias gitl="git log --oneline --graph"
@@ -30,7 +39,7 @@ alias giti="git init"
 alias gitp="git push --set-upstream origin main"
 alias gitph="git push heroku"
 
-export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/Android/Sdk/emulator:$HOME/bin"
+export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/Android/Sdk/emulator:$HOME/bin:$HOME/.local/bin"
 
 bindkey '^F' autosuggest-accept
 
@@ -40,8 +49,8 @@ git_prompt() {
   then
     echo ""
   else
-    echo "$ref "
+    echo "[$ref]"
   fi
 }
 
-export PROMPT='%F{green}%n%F{magenta}@%F{blue}%M%F{green}%~ %F{red}$(git_prompt)%B%F{magenta}$ %b%F{reset}'
+export PROMPT='%F{green}%n%F{magenta}@%F{blue}%M%F{green}%~%F{red}$(git_prompt)%B%F{magenta}> %b%F{reset}'
