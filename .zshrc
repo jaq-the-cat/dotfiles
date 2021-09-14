@@ -30,8 +30,7 @@ alias giti="git init"
 alias gitp="git push --set-upstream origin main"
 alias gitph="git push heroku"
 
-#export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/Android/Sdk/emulator:$HOME/bin"
-export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/bin"
+export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/Android/Sdk/emulator:$HOME/bin"
 
 bindkey '^F' autosuggest-accept
 
