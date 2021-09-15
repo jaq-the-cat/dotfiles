@@ -33,6 +33,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'svermeulen/vim-easyclip' " mm and black hole dd
 Plug 'matze/vim-move' " move lines and characters around
+Plug 'tpope/vim-repeat'
 
 " Themes
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -44,50 +45,56 @@ Plug 'EdenEast/nightfox.nvim'
 call plug#end()
 
 " Movement
-nnoremap j gj
-xnoremap j gj
-onoremap j gj
+nmap j gj
+xmap j gj
+omap j gj
 
-nnoremap k gk
-xnoremap k gk
-onoremap k gk
+nmap k gk
+xmap k gk
+omap k gk
 
-nnoremap <C-h> g^
-xnoremap <C-h> g^
-onoremap <C-h> g^
+nmap <C-h> g^
+xmap <C-h> g^
+omap <C-h> g^
 
-nnoremap <C-l> g$
-xnoremap <C-l> g$
-onoremap <C-l> g$
+nmap <C-l> g$
+xmap <C-l> g$
+omap <C-l> g$
 
-nnoremap <C-j> 8gj
-nnoremap <C-k> 8gk
+nmap <C-j> 8gj
+nmap <C-k> 8gk
 
-nnoremap + 10<C-w>>
-nnoremap _ 10<C-w><
+nmap + 10<C-w>>
+nmap _ 10<C-w><
 
 " copy to system clipboard
-xnoremap <C-c> "+y
+xmap <C-c> "+y
+
+""" Git
+
+nmap <leader>gic :vsplit<CR>:term git add . && git commit<CR>a
+nmap <leader>gim :vsplit<CR>:term git commit --amend<CR>a
+nmap <leader>gip :vsplit<CR>:term git push --set-upstream origin main<CR>a
 
 """ Plugins
-nnoremap <bar> :NERDTreeToggle<CR>
+nmap <bar> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=26
 
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fl :Lines<CR>
+nmap <leader>ff :Files<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>fl :Lines<CR>
 
 " scroll floating windows/popups with Up and Down
-nnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Up>"
-nnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Down>"
-inoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Up>"
-vnoremap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Down>"
+nmap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Up>"
+nmap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Down>"
+imap <silent><nowait><expr> <Up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+imap <silent><nowait><expr> <Down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vmap <silent><nowait><expr> <Up> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Up>"
+vmap <silent><nowait><expr> <Down> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Down>"
 
 let g:user_emmet_leader_key=','
 
-inoremap <silent><expr> <tab>
+imap <silent><expr> <tab>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -101,12 +108,12 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 " GoTo code navigation.
-nnoremap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> gy <Plug>(coc-type-definition)
-nnoremap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> gr <Plug>(coc-references)
+nmap <silent> gtd <Plug>(coc-definition)
+nmap <silent> gty <Plug>(coc-type-definition)
+nmap <silent> gti <Plug>(coc-implementation)
+nmap <silent> gtr <Plug>(coc-references)
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -119,16 +126,16 @@ endfunction
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-nnoremap <leader>rn <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xnoremap <leader>fr <Plug>(coc-format-selected)
-nnoremap <leader>fr <Plug>(coc-format-selected)
+xmap <leader>fr <Plug>(coc-format-selected)
+nmap <leader>fr <Plug>(coc-format-selected)
 
-xnoremap M <Plug>(coc-codeaction-selected)
-nnoremap M <Plug>(coc-codeaction)
+xmap M <Plug>(coc-codeaction-selected)
+nmap M <Plug>(coc-codeaction)
 
-nnoremap <leader>. :CocCommand<CR>
+nmap <leader>. :CocCommand<CR>
 
 """ Colorschemes
 
@@ -153,3 +160,6 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+" Filetype stuff
+autocmd BufNewFile,BufRead *.html :set filetype=htmldjango

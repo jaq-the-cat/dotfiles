@@ -23,6 +23,8 @@ alias q="exit"
 alias di="sudo dnf install -y"
 alias dr="sudo dnf remove -y"
 alias ds="dnf search"
+alias din="dnf list installed | grep"
+alias dce="sudo dnf copr enable"
 
 # Python stuff
 alias pis="pipenv shell"
