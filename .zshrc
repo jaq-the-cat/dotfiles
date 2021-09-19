@@ -19,8 +19,11 @@ export VISUAL=$EDITOR
 
 # Terminal stuff
 alias icat="kitty +kitten icat"
+alias pls="sudo"
+alias please="sudo"
 alias q="exit"
 alias di="sudo dnf install -y"
+alias du="sudo dnf upgrade -y"
 alias dr="sudo dnf remove -y"
 alias ds="dnf search"
 alias din="dnf list installed | grep"
@@ -31,7 +34,11 @@ alias pis="pipenv shell"
 alias pi3="pipenv --three"
 alias pii="pipenv install"
 alias piu="pipenv uninstall"
+alias pir="pipenv run"
 alias pig="pipenv graph"
+
+# Flask
+alias cfr="clear && pipenv run flask run"
 
 # Git stuff
 alias gitac="git add . && git commit"
@@ -55,4 +62,4 @@ git_prompt() {
   fi
 }
 
-export PROMPT='%F{green}%n%F{magenta}@%F{blue}%M%F{green}%~%F{red}$(git_prompt)%B%F{magenta}> %b%F{reset}'
+export PROMPT='%F{082}%n%F{083}@%F{084}%M%F{085}%~%F{red}$(git_prompt)%B%F{086}> %b%F{reset}'

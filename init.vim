@@ -63,6 +63,10 @@ omap <C-l> g$
 
 nmap <C-j> 8gj
 nmap <C-k> 8gk
+xmap <C-j> 8gj
+xmap <C-k> 8gk
+omap <C-j> 8gj
+omap <C-k> 8gk
 
 nmap + 10<C-w>>
 nmap _ 10<C-w><
@@ -100,6 +104,9 @@ imap <silent><expr> <tab>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -108,10 +115,10 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 " GoTo code navigation.
-nmap <silent> gtd <Plug>(coc-definition)
-nmap <silent> gty <Plug>(coc-type-definition)
-nmap <silent> gti <Plug>(coc-implementation)
-nmap <silent> gtr <Plug>(coc-references)
+nmap <silent> cgd <Plug>(coc-definition)
+nmap <silent> cgy <Plug>(coc-type-definition)
+nmap <silent> cgi <Plug>(coc-implementation)
+nmap <silent> cgr <Plug>(coc-references)
 
 nmap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -126,11 +133,14 @@ endfunction
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>cr <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>fr <Plug>(coc-format-selected)
-nmap <leader>fr <Plug>(coc-format-selected)
+xmap <leader>cfr <Plug>(coc-format-selected)
+nmap <leader>cfr <Plug>(coc-format)
+
+nmap <leader>cfx <Plug>(coc-format-selected)
+
+nmap M <Plug>(coc-codeaction)
 
 xmap M <Plug>(coc-codeaction-selected)
 nmap M <Plug>(coc-codeaction)
