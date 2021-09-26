@@ -48,7 +48,8 @@ alias giti="git init"
 alias gitp="git push --set-upstream origin main"
 alias gitph="git push heroku"
 
-export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/Android/Sdk/emulator:$HOME/bin:$HOME/.local/bin"
+export PATH="$PATH:$HOME/dev/flutter/bin/:$HOME/Android/Sdk/emulator:/opt/:/opt/gradle/gradle-7.2/bin:$HOME/bin:$HOME/.local/bin"
+export CHROME_EXECUTABLE="chromium-browser"
 
 bindkey '^F' autosuggest-accept
 
