@@ -8,11 +8,7 @@ set clipboard+=unnamedplus
 let mapleader=","
 let leader=","
 
-if exists('g:vscode')
-  source ~/.config/nvim/vscode.vim
-else
-  source ~/.config/nvim/neovim.vim
-endif
+source ~/.config/nvim/neovim.vim
 
 let g:user_emmet_leader_key=','
 let g:NERDCustomDelimiters = { 'htmldjango': { 'left': '<!--','right': '-->' } }
